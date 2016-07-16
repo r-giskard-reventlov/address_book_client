@@ -1,4 +1,24 @@
 <p>Organisation Persons</p>
 <p>
   List of persons in org
+
+  {{ organisation }}
+
+  <table>
+    <thead>
+      <tr>
+	<th>Forename</th>
+	<th>Surname</th>
+      </tr>
+    </thead>
+    <tbody>
+	<tr ng-repeat="person in organisation.persons" ng-click="selectPersons(person)">
+	  <td>{{ person.forename }}</td>
+	  <td>{{ person.surname }}</td>
+	</tr>
+    </tbody>
+  </table>
+  
 </p>
+
+

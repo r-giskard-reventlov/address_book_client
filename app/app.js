@@ -2,14 +2,31 @@
 
 // Declare app level module which depends on views, and components
 angular.module('addressbook', [
-  'ngRoute',
-  'addressbook.organisation',
-  'addressbook.organisation_persons',
-  'ui.bootstrap'  
-  //'myApp.version'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
+    'addressbook.organisation',
+    'addressbook.organisation_persons',
+    'addressbook.organisation.service',
+    'ui.router',
+    'ui.bootstrap'])
 
-  $routeProvider.otherwise({redirectTo: '/organisation'});
-}]);
+    .run(function($rootScope) {
+	$rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+	    console.error("$stateChangeError: ", toState, error);
+	});
+    })
+
+    .config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider
+	    .state('organisation', {
+		url: '/organisation',
+		templateUrl: 'organisation/organisation.html',
+		controller: 'OrganisationCtrl'
+	    })
+	    .state('organisation_persons', {
+		url: '/organisation_persons',
+		templateUrl: 'organisation_persons/organisation_persons.html',
+		controller: 'OrgainsationPersonsCtrl',
+		params: { id: null }
+	    });
+
+	$urlRouterProvider.otherwise('/organisation');
+    });
