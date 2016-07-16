@@ -43,11 +43,15 @@ angular.module('addressbook.organisation', ['ngRoute'])
 
     }])
 
-    .controller('OrganisationCtrl', ['$scope', 'Organisation', function($scope, Organisation) {
+    .controller('OrganisationCtrl', ['$state', '$scope', 'Organisation', function($state, $scope, Organisation) {
 	Organisation.findAll(
 	    function(data) {
 		$scope.organisations = data.organisations;
 	    },
 	    function(error) {}
 	);
+	$scope.selectOrganisation = function(organisation) {
+	    console.log('selected %s', JSON.stringify(organisation));
+	    state.go();
+	};
     }]);

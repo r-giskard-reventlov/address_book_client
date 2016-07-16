@@ -1,6 +1,6 @@
 <p>Organisations</p>
 
-<table>
+<table class="table table-bordered table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -8,9 +8,10 @@
     </tr>
   </thead>
   <tbody>
-      <tr ng-repeat="organisation in organisations">
+      <tr ng-repeat="organisation in organisations" ng-click="selectOrganisation(organisation)">
 	<td>{{ organisation.name }}</td>
 	<td>{{ organisation.address }}</td>
       </tr>
   </tbody>
 </table>
+

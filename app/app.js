@@ -4,7 +4,8 @@
 angular.module('addressbook', [
   'ngRoute',
   'addressbook.organisation',
-  'addressbook.organisation_persons'
+  'addressbook.organisation_persons',
+  'ui.bootstrap'  
   //'myApp.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
