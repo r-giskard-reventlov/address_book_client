@@ -41,12 +41,38 @@ angular.module('addressbook.organisation.service', [])
 			console.error('could not discover services', error);
 		    });
 	    },
+    	    create: function(organisation, callback, callbackError) {
+		// organisation will eventually have a id represented as a url, allowing for easy url without need to build up
+		var org_url = 'http://localhost:8080/organisations';
+		return $http.post(org_url, organisation).then(
+		    function(response) {
+			callback(response.data);
+		    },
+		    function(error) {
+			callbackError(error);
+		    });
+	    },
+    	    delete: function(id, callback, callbackError) {
+		// organisation will eventually have a id represented as a url, allowing for easy url without need to build up
+		var org_url = 'http://localhost:8080/organisations/' + id;
+		return $http.delete(org_url).then(
+		    function(response) {
+			callback(response.data);
+		    },
+		    function(error) {
+			callbackError(error);
+		    });
+	    },
 	    save: function(organisation, callback, callbackError) {
 		// organisation will eventually have a id represented as a url, allowing for easy url without need to build up
 		var org_url = 'http://localhost:8080/organisations/' + organisation.id;
-		return $http.put(org_url, organisation).then(function(response) {
-		    callback(response.data);
-		});
+		return $http.put(org_url, organisation).then(
+		    function(response) {
+			callback(response.data);
+		    },
+		    function(error) {
+			callbackError(error);
+		    });
 	    }
 	}
     }])

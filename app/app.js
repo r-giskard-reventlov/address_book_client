@@ -21,9 +21,14 @@ angular.module('addressbook', [
 		templateUrl: 'organisation/organisation.html',
 		controller: 'OrganisationCtrl'
 	    })
+	    .state('organisation_add', {
+		url: '/organisation_add',
+		templateUrl: 'organisation/organisation_edit.html',
+		controller: 'OrganisationAddCtrl'
+	    })
 	    .state('organisation_edit', {
 		url: '/organisation_edit/:id',
-		templateUrl: 'organisation/organisation-edit.html',
+		templateUrl: 'organisation/organisation_edit.html',
 		controller: 'OrganisationEditCtrl'
 	    })
 	    .state('organisation_persons', {

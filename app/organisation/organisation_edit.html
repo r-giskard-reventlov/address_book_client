@@ -1,0 +1,36 @@
+<div ng-class="{'alert alert-success': flash.status == 'ok', 'alert alert-danger': flash.status == 'ko'}" ng-if="flash">
+  {{ flash.message }}
+</div>
+
+<div class="well well-sm">
+  <h3>Organisation</h3>
+  <br/>
+  <form name="frmEditOrganisation">
+    <div class="form-group">
+	Name:
+	<input type="text" class="form-control" ng-model="organisation.name" name="name" required="" />
+	<br />
+	<div ng-show="form.$submitted || form.name.$touched">
+	  <div ng-show="form.name.$error.required">Ensure you enter an organisation name.</div>
+	</div>
+    </div>
+    <div class="form-group">
+	Address:
+	<input type="text" class="form-control" ng-model="organisation.address" name="address" required="" />
+	<br />
+	<div ng-show="form.$submitted || form.address.$touched">
+	  <div ng-show="form.address.$error.required">Ensure you enter an organisation address.</div>
+	</div>
+    </div>
+    <div class="form-group">
+	Phone Number:
+	<input type="text" class="form-control" ng-model="organisation.phone" name="phone" required="" />
+	<br />
+	<div ng-show="form.$submitted || form.phone.$touched">
+	  <div ng-show="form.phone.$error.required">Ensure you enter an organisation phone number.</div>
+	</div>
+    </div>
+    <button ng-click="saveOrganisation()" ng-disabled="frmEditOrganisation.$invalid" ng-class="{'btn btn-success': frmEditOrganisation.$valid, 'btn btn-warning': frmEditOrganisation.$invalid}">Save</button>
+    <button ng-click="viewOrganisations()" class="btn btn-default">Back</button>  
+  </form>
+</div>
