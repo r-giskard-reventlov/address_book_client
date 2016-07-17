@@ -1,0 +1,29 @@
+<div ng-class="{'alert alert-success': flash.status == 'ok', 'alert alert-danger': flash.status == 'ko'}" ng-if="flash">
+  {{ flash.message }}
+</div>
+
+<div class="well well-sm">
+  <h3>Persons</h3>
+  <br/>
+  <form name="frmAddPerson">
+    <div class="form-group">
+	Forename:
+	<input type="text" class="form-control" ng-model="person.forename" name="forename" required="" />
+	<br />
+	<div ng-show="form.$submitted || form.forename.$touched">
+	  <div ng-show="form.forename.$error.required">Ensure you enter a forename.</div>
+	</div>
+    </div>
+    <div class="form-group">
+	Surname:
+	<input type="text" class="form-control" ng-model="person.surname" name="surname" required="" />
+	<br />
+	<div ng-show="form.$submitted || form.surname.$touched">
+	  <div ng-show="form.surname.$error.required">Ensure you enter a surname.</div>
+	</div>
+    </div>
+
+    <button ng-click="save()" ng-disabled="frmAddPerson.$invalid" ng-class="{'btn btn-success': frmAddPerson.$valid, 'btn btn-warning': frmAddPerson.$invalid}">Save</button>
+    <button ng-click="back()" class="btn btn-default">Back</button>  
+  </form>
+</div>

@@ -26,7 +26,7 @@ angular.module('addressbook.organisation', [])
 	    Organisation.delete(
 		organisation.id,
 		function(response) {
-		    $scope.flash = {"status": "ok", "message": "Deleted person"}
+		    $scope.flash = {"status": "ok", "message": "Deleted organisation"}
 		},
 		function(error) {
 		    $scope.organisations.splice(organisationIndex, 0, organisation);

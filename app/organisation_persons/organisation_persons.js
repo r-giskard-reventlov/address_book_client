@@ -18,6 +18,9 @@ angular.module('addressbook.organisation_persons', [])
 	$scope.viewOrganisations = function() {
 	    $state.go('organisation');
 	};
+	$scope.editPerson = function(personIndex) {
+	    $state.go('organisation_persons_edit', {id: $stateParams.id, personIndex: personIndex});
+	};
 	$scope.deletePerson = function(personIndex) {
 	    var person = $scope.organisation.persons[personIndex];
 	    $scope.organisation.persons.splice(personIndex, 1);
@@ -45,19 +48,48 @@ angular.module('addressbook.organisation_persons', [])
 		console.error('Could no load Organisation', error);
 	    }
 	);
-	$scope.savePerson = function() {
+	$scope.save = function() {
     	    $scope.organisation.persons.push($scope.person);
 	    Organisation.save(
 		$scope.organisation,
 		function(response) {
 		    $scope.flash = {"status": "ok", "message": "Saved person"}
+		    $scope.person = {}
 		},
 		function(error) {
 		    console.error('could not add person to organisation', $scope.organisation, error);
 		    $scope.flash = {"status": "ko", "message": "Could no save person"}
 		});
 	};
-	$scope.viewOrganisation = function() {
+	$scope.back = function() {
+	    $state.go('organisation_persons', {id: $stateParams.id});
+	};
+    }])
+    .controller('OrgainsationPersonsEditCtrl', ['$state', '$scope', '$stateParams', 'Organisation', function($state, $scope, $stateParams, Organisation) {
+	console.log('editing a persons in org', $stateParams);
+	Organisation.findOneById(
+	    $stateParams.id,
+	    function(response) {
+		$scope.organisation = response.organisation;
+		$scope.person = response.organisation.persons[$stateParams.personIndex];
+		console.log($scope.person);
+	    },
+	    function(error) {
+		console.error('Could no load Organisation', error);
+	    }
+	);
+	$scope.save = function() {
+	    Organisation.save(
+		$scope.organisation,
+		function(data) {
+		    $scope.flash = {"status": "ok", "message": "Saved person"}
+		},
+		function(error) {
+		    console.error('could not edit person in organisation', $scope.organisation, error);
+		    $scope.flash = {"status": "ko", "message": "Could no save person"}
+		});
+	};
+	$scope.back = function() {
 	    $state.go('organisation_persons', {id: $stateParams.id});
 	};
     }]);

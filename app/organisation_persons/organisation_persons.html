@@ -1,32 +1,33 @@
-<p>Organisation Persons</p>
-
 <div ng-class="{'alert alert-success': flash.status == 'ok', 'alert alert-danger': flash.status == 'ko'}" ng-if="flash">
   {{ flash.message }}
 </div>
 
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th>Forename</th>
-      <th>Surname</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr ng-repeat="person in organisation.persons">
-	<td>{{ person.forename }}</td>
-	<td>{{ person.surname }}</td>
-	<td>
-	  <button ng-click="deletePerson($index)" class="btn btn-default">Delete</button>
-	  <button ng-click="editPerson(person)" class="btn btn-default">Edit</button>
-	</td>
+<div class="well well-sm">
+  <h3>{{ organisation.name }}</h3>
+  <br/>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+	<th>Forename</th>
+	<th>Surname</th>
+	<th></th>
       </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+	<tr ng-repeat="person in organisation.persons">
+	  <td>{{ person.forename }}</td>
+	  <td>{{ person.surname }}</td>
+	  <td>
+	    <button ng-click="deletePerson($index)" class="btn btn-default">Delete</button>
+	    <button ng-click="editPerson($index)" class="btn btn-default">Edit</button>
+	  </td>
+	</tr>
+    </tbody>
+  </table>
 
-<button ng-click="addPerson()" class="btn btn-default">Add Person</button>
-<button ng-click="viewOrganisations()" class="btn btn-default">Back</button>
-
+  <button ng-click="addPerson()" class="btn btn-default">Add Person</button>
+  <button ng-click="viewOrganisations()" class="btn btn-default">Back</button>
+</div>
 
 
 

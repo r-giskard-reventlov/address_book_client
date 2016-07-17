@@ -38,8 +38,14 @@ angular.module('addressbook', [
 	    })
 	    .state('organisation_persons_add', {
 		url: '/organisation_persons_add/:id',
-		templateUrl: 'organisation_persons/organisation_persons_add.html',
+		templateUrl: 'organisation_persons/organisation_persons_edit.html',
 		controller: 'OrgainsationPersonsAddCtrl'
+	    })
+	    .state('organisation_persons_edit', {
+		url: '/organisation_persons_edit/:id',
+		templateUrl: 'organisation_persons/organisation_persons_edit.html',
+		controller: 'OrgainsationPersonsEditCtrl',
+		params: { personIndex: null }
 	    });
 
 	$urlRouterProvider.otherwise('/organisation');
