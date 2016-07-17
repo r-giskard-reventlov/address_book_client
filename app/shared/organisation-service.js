@@ -1,78 +1,58 @@
 angular.module('addressbook.organisation.service', [])
+
     .factory('Organisation', ['$http', function($http) {
+
+	// TODO: host + port as config
+	var SERVER = 'http://localhost:8080';
+	
 	var _discoverServices = function() {
-	    return $http.get('http://localhost:8080').then(function(response) {
-		return response.data;
-	    });
+	    return $http.get(SERVER).then(
+		function(response) {
+		    return response.data;
+		});
 	}
 
 	var _linkWithRel = function(links, rel) {
 	    for(var i=0; i<links.length; i++) {
 		if(rel == links[i]['rel']) {
 		    return links[i].href;
-		} else {
-		    return null
-		}
+		} 
 	    }
+	    return null;
 	}
 
 	return {
-	    findAll: function(callback, callbackError) {
-		_discoverServices().then(
-		    function(data) {
-	    		var org_url = _linkWithRel(data.links, 'organisations');
-			return $http.get(org_url).then(function(response) {
-			    callback(response.data);
-			});
-		    },
-		    function(error) {
-			console.error('could not discover services', error);
+	    findAll: function() {
+		return _discoverServices().then(function(data) {
+	    	    var org_url = _linkWithRel(data.links, 'organisations');
+		    return $http.get(org_url).then(function(response) {
+			return response.data;
 		    });
+		});
 	    },
-	    findOneById: function(id, callback, callbackError) {
-		_discoverServices().then(
-		    function(data) {
-	    		var org_url = _linkWithRel(data.links, 'organisations');
-			return $http.get(org_url + "/" + id).then(function(response) {
-			    callback(response.data);
-			});
-		    },
-		    function(error) {
-			console.error('could not discover services', error);
-		    });
-	    },
-    	    create: function(organisation, callback, callbackError) {
-		// organisation will eventually have a id represented as a url, allowing for easy url without need to build up
-		var org_url = 'http://localhost:8080/organisations';
-		return $http.post(org_url, organisation).then(
+	    findOneById: function(id) {
+		return $http.get(id).then(
 		    function(response) {
-			callback(response.data);
-		    },
-		    function(error) {
-			callbackError(error);
+			return response.data;
 		    });
 	    },
-    	    delete: function(id, callback, callbackError) {
-		// organisation will eventually have a id represented as a url, allowing for easy url without need to build up
-		var org_url = 'http://localhost:8080/organisations/' + id;
-		return $http.delete(org_url).then(
-		    function(response) {
-			callback(response.data);
-		    },
-		    function(error) {
-			callbackError(error);
+    	    create: function(organisation) {
+		return _discoverServices().then(function(data) {
+		    var org_url = _linkWithRel(data.links, 'organisations');
+		    return $http.post(org_url, organisation).then(function(response) {
+			return response.data;
 		    });
+		});
 	    },
-	    save: function(organisation, callback, callbackError) {
-		// organisation will eventually have a id represented as a url, allowing for easy url without need to build up
-		var org_url = 'http://localhost:8080/organisations/' + organisation.id;
-		return $http.put(org_url, organisation).then(
-		    function(response) {
-			callback(response.data);
-		    },
-		    function(error) {
-			callbackError(error);
-		    });
+    	    delete: function(id) {
+		return $http.delete(id).then(function(response) {
+		    return response.data;
+		});
+	    },
+	    save: function(id, organisation) {
+		return $http.put(id, organisation).then(function(response) {
+		    return response.data;
+		});
 	    }
 	}
     }])
