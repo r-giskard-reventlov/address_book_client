@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('addressbook.organisation', [])
+
     .controller('OrganisationCtrl', ['$state', '$scope', 'Organisation', function($state, $scope, Organisation) {
 
 	Organisation.findAll().then(function(data) {

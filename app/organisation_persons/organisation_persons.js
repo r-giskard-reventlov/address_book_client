@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('addressbook.organisation_persons', [])
+
     .controller('OrgainsationPersonsCtrl', ['$state', '$scope', '$stateParams', 'Organisation', function($state, $scope, $stateParams, Organisation) {
 	console.log('about to load all details for org', $stateParams);
 
