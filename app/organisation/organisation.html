@@ -5,12 +5,17 @@
     <tr>
       <th>Name</th>
       <th>Address</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-      <tr ng-repeat="organisation in organisations" ng-click="selectOrganisation(organisation)">
+      <tr ng-repeat="organisation in organisations">
 	<td>{{ organisation.name }}</td>
 	<td>{{ organisation.address }}</td>
+	<td>
+	  <button ng-click="selectOrganisation(organisation)">View</button>
+	  <button ng-click="editOrganisation(organisation)">Edit</button>
+	</td>
       </tr>
   </tbody>
 </table>
